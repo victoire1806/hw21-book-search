@@ -19,12 +19,19 @@ class AuthService {
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
+      console.log(decoded.exp);
+      console.log(Date.now() / 1000);
+      
       if (decoded.exp < Date.now() / 1000) {
+        localStorage.removeItem('id_token');
         return true;
+      
       } else return false;
-    } catch (err) {
-      return false;
+    
+    }  catch (err) {
+      return true;
     }
+  
   }
 
   getToken() {
